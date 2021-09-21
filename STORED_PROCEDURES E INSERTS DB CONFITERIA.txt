@@ -1,0 +1,185 @@
+--INSERT A LA TABLA ROLES DE USUARIOS--
+insert into ROLES_USUARIOS (tipo_rol) values ('ADMINISTRADOR')
+insert into ROLES_USUARIOS (tipo_rol) values ('EMPLEADO')
+
+--INSERT A LA TABLA DE TIPOS_IVAS
+insert into TIPOS_IVAS (tipo_iva) values ('MONOTRIBUTISTA')
+insert into TIPOS_IVAS (tipo_iva) values ('RES. INSCRIPTO')
+
+--PROCEDIMIENTOS ALMACENADOS--
+
+--SP INSERTAR USUARIOS--
+create procedure sp_insertarUsuario
+@nombreUsuario nvarchar(20),
+@password nvarchar(20),
+@idRol int
+as
+insert into USUARIOS (nombreUsuario, pass, idRolUsuario) values ( @nombreUsuario, @password, @idRol)
+
+--SP MODIFICAR USUARIOS--
+create procedure sp_modificarUsuarios
+@nombreUsuario nvarchar(20),
+@password nvarchar(20),
+@idRol int,
+@idUsuario int
+as
+begin
+update USUARIOS
+set nombreUsuario = @nombreUsuario,
+	pass = @password,
+	idRolUsuario = @idRol
+where idUsuario = @idUsuario
+end
+
+--SP ELIMINAR USUARIOS--
+create procedure sp_eliminarUsuarios
+@idUsuarioEliminar int
+as
+delete USUARIOS
+where idUsuario = @idUsuarioEliminar
+
+--SP INSERTAR MOZOS--
+create procedure sp_insertarMozo
+@nroDoc nvarchar(20),
+@nombre nvarchar(15),
+@apellido nvarchar(15),
+@comision float,
+@fechaIngreso date
+as
+insert into MOZOS (nroDoc, nombre, apellido, comision, fechaIngreso) values (@nroDoc, @nombre, @apellido, @comision, @fechaIngreso)
+
+--SP MODIFICAR MOZOS--
+create procedure sp_modificarMozos
+@nroDoc nvarchar(20),
+@nombre nvarchar(15),
+@apellido nvarchar(15),
+@comision float,
+@fechaIngreso date,
+@idMozoModificar int
+as
+begin
+update MOZOS
+set nroDoc = @nroDoc,
+	nombre = @nombre,
+	apellido = @apellido,
+	comision = @comision,
+	fechaIngreso = @fechaIngreso
+where idMozo = @idMozoModificar
+end
+
+--SP ELIMINAR MOZO--
+create procedure sp_eliminarMozos
+@idMozoEliminar int
+as
+delete MOZOS
+where idMozo = @idMozoEliminar
+
+--SP INSERTAR ARTICULOS--
+create procedure sp_insertarArticulos
+@descripcion nvarchar(20),
+@stock int,
+@precio_art float,
+@idRubro int
+as
+insert into ARTICULOS (descripcion, stock, precio_articulo, idRubro) values (@descripcion, @stock, @precio_art, @idRubro)
+
+--SP MODIFICAR ARTICULOS--
+create procedure sp_modificarArticulos
+@descripcion nvarchar(20),
+@stock int,
+@precio_art float,
+@idRubro int,
+@idArticuloModificar int
+as
+begin
+update ARTICULOS
+set descripcion = @descripcion,
+	stock = @stock,
+	precio_articulo = @precio_art,
+	idRubro = @idRubro
+where idArticulo = @idArticuloModificar
+end
+
+--SP ELIMINAR ARTICULOS--
+create procedure sp_eliminarArticulos
+@idArticuloEliminar int
+as
+delete ARTICULOS
+where idArticulo = @idArticuloEliminar
+
+--SP INSERTAR RUBROS_ARTICULOS
+create procedure sp_insertarRubrosArticulos
+@tipo_rubro nvarchar(30)
+as
+insert into RUBROS_ARTICULOS (tipo_rubro) values (@tipo_rubro)
+
+--SP MODIFICAR RUBROS_ARTICULOS
+create procedure sp_modificarRubrosArticulos
+@tipo_rubro nvarchar(30),
+@idRubroModificar int
+as
+begin
+update RUBROS_ARTICULOS
+set tipoRubro = @tipo_rubro
+where idRubro = @idRubroModificar
+end
+
+--SP ELIMINAR RUBROS_ARTICULOS
+create procedure sp_eliminarRubrosArticulos
+@idRubroEliminar int
+as
+delete RUBROS_ARTICULOS
+where idRubro = @idRubroEliminar
+
+--SP INSERTAR SUCURSAL--
+create procedure sp_insertarSucursal
+@direccion nvarchar(50),
+@razonSocial nvarchar(20),
+@nroCuit nvarchar(20),
+@ingBrutos float,
+@idTipoIva int
+as
+insert into SUCURSALES (direccion, razonSocial, nroCuit, ingresosBrutos, idTipoIva) values (@direccion, @razonSocial, @nroCuit, @ingBrutos, @idTipoIva)
+
+--SP MODIFICAR SUCURSAL--
+create procedure sp_modificarSucursal
+@direccion nvarchar(50),
+@razonSocial nvarchar(20),
+@nroCuit nvarchar(20),
+@ingBrutos float,
+@idTipoIva int,
+@idSucursalModificar int
+as
+begin
+update SUCURSALES
+set direccion = @direccion,
+	razonSocial = @razonSocial,
+	nroCuit = @nroCuit,
+	ingresosBrutos = @ingBrutos,
+	idTipoIva = @idTipoIva
+where idSucursal = @idSucursalModificar
+end
+
+--SP ELIMINAR SUCURSAL--
+create procedure sp_eliminarSucursal
+@idSucursalEliminar int
+as
+delete SUCURSALES
+where idSucursal = @idSucursalEliminar
+
+--SP INSERTAR TICKETS--
+create procedure sp_insertarTickets
+@fecha date,
+@idSucursal int,
+@idMozo int
+as
+insert into TICKETS (fecha, idSucursal, idMozo) values (@fecha, @idSucursal, @idMozo)
+
+--SP INSERTAR DETALLES_TICKETS
+create procedure sp_insertarDetalleTickets
+@cantidad int,
+@preUnitario float,
+@nroTicket int,
+@idArticulo int
+as
+insert into DETALLE_TICKETS (cantidad, precioUnitario, nroTicket, idArticulo) values (@cantidad, @preUnitario, @nroTicket, @idArticulo)

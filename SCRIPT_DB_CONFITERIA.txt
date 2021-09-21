@@ -1,0 +1,65 @@
+create database Confiteria
+use Confiteria
+
+
+create table MOZOS(
+idMozo int identity primary key,
+nroDoc int not null,
+nombre nvarchar(20) not null,
+apellido nvarchar(20) not null,
+comision float not null,
+fechaIngreso date not null
+)
+
+create table TIPOS_IVAS(
+idTipoIva int identity primary key,
+tipo_iva nvarchar(20) not null
+)
+
+create table SUCURSALES(
+idSucursal int identity primary key,
+direccion nvarchar(50) not null,
+razonSocial nvarchar(20) not null,
+nroCuit nvarchar not null,
+ingresosBrutos float not null,
+idTipoIva int foreign key references TIPOS_IVAS (idTipoIva)
+)
+
+create table ROLES_USUARIOS(
+idRolUsuario int identity primary key,
+tipo_rol nvarchar(20) not null
+)
+
+create table USUARIOS(
+idUsuario int identity primary key,
+nombreUsuario nvarchar(20) not null,
+pass nvarchar(20) not null,
+idRolUsuario int foreign key references ROLES_USUARIOS (idRolUsuario)
+)
+
+create table RUBROS_ARTICULOS(
+idRubro int identity primary key,
+tipoRubro varchar(10) not null
+)
+
+create table ARTICULOS(
+idArticulo int identity primary key,
+descripcion nvarchar(20) not null,
+stock int not null,
+precio_articulo float not null,
+idRubro int foreign key references RUBROS_ARTICULOS(idRubro)
+)
+
+create table TICKETS(
+nroTicket int identity primary key,
+fecha date not null,
+idSucursal int foreign key references SUCURSALES(idSucursal),
+idMozo int foreign key references MOZOS(idMozo)
+)
+
+create table DETALLE_TICKETS(
+nro_detalle int identity primary key,
+cantidad int not null,
+precioUnitario float not null,
+nroTicket int foreign key references TICKETS(nroTicket),
+idArticulo int foreign key references ARTICULOS(idArticulo)
