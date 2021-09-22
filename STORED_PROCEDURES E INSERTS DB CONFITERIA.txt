@@ -74,6 +74,12 @@ as
 delete MOZOS
 where idMozo = @idMozoEliminar
 
+--SP SELECCIONAR ID MOZO--
+create proc sp_seleccionarIDMozo
+@idMozo int
+as
+select * from MOZOS where idMozo = @idMozo
+
 --SP INSERTAR ARTICULOS--
 create procedure sp_insertarArticulos
 @descripcion nvarchar(20),
@@ -106,6 +112,12 @@ create procedure sp_eliminarArticulos
 as
 delete ARTICULOS
 where idArticulo = @idArticuloEliminar
+
+--SP OBTENER ID ARTICULOS--
+create proc sp_seleccionarIDArticulo
+@idArticulo int
+as
+select * from ARTICULOS where idArticulo = @idArticulo
 
 --SP INSERTAR RUBROS_ARTICULOS
 create procedure sp_insertarRubrosArticulos
