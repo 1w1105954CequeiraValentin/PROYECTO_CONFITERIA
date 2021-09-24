@@ -38,6 +38,12 @@ as
 delete USUARIOS
 where idUsuario = @idUsuarioEliminar
 
+--SP OBTENER ID USUARIOS--
+create procedure sp_seleccionarIDUsuario
+@idUsuario int
+as
+select * from USUARIOS where idUsuario = @idUsuario
+
 --SP INSERTAR MOZOS--
 create procedure sp_insertarMozo
 @nroDoc nvarchar(20),
