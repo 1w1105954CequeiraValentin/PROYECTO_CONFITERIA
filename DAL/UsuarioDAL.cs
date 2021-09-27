@@ -122,7 +122,7 @@ namespace DAL
         }
 
         //OBTENER/LISTAR LOS USUARIOS
-        public static List<Usuario> LstUsuarios(int id)
+        public static List<Usuario> LstUsuarios()
         {
 
             SqlConnection con = new SqlConnection();
@@ -135,8 +135,7 @@ namespace DAL
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandText = "select * " +
-                                  "from USUARIOS" +
-                                  " where idUsuario = '" + id + "'";
+                                  "from USUARIOS";
                 SqlDataReader dr = cmd.ExecuteReader();
                 lst.Clear();
 
@@ -175,7 +174,7 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = spSeleccionarIDUsuario;
-                cmd.Parameters.AddWithValue("@idArticulo", u.IdUsuario);
+                cmd.Parameters.AddWithValue("@idUsario", u.IdUsuario);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -189,6 +188,42 @@ namespace DAL
             catch (Exception)
             {
                 //Conexion.BeginTransaction();
+                throw new Exception("Ha ocurrido un error");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        //INICIAR SESION LOGIN
+        public static List<Usuario> ListaUsuario(string usuario, string pass)
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            List<Usuario> lst = new List<Usuario>();
+            Usuario us = null;
+            try
+            {
+                string spIniciarSesion = "sp_iniciarSesion";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = spIniciarSesion;
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                cmd.Parameters.AddWithValue("@pass", pass);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    lst.Add(BuscarUsuarios(dr));
+                }
+                return lst;
+            }
+            catch (Exception)
+            {
+                //agregar alerta
                 throw new Exception("Ha ocurrido un error");
             }
             finally

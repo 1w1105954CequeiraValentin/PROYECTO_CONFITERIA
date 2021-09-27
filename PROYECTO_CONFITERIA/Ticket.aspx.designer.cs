@@ -11,7 +11,7 @@ namespace PROYECTO_CONFITERIA
 {
 
 
-    public partial class Login
+    public partial class Ticket
     {
     }
 }

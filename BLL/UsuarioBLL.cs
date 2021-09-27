@@ -23,5 +23,9 @@ namespace BLL
         {
             return usuarioDAL.EliminarUsuario(usuario2);
         }
+        public static List<Usuario> ListaUsuario(string usuario, string pass)
+        {
+            return UsuarioDAL.ListaUsuario(usuario, pass);
+        }
     }
 }

@@ -28,7 +28,7 @@
                     <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     </button>
                 </div>
-                <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+                <div class="img bg-wrap text-center py-4" style="background-image: /*url(images/bg_1.jpg);*/">
                     <div class="user-logo">
                         <div class="img" style="background-image: url(images/encode.png);"></div>
                         <h3>Encode Confi</h3>
@@ -38,23 +38,23 @@
                     <li class="active">
                         <a href="/Index.aspx"><span class="fa fa-home mr-3"></span>Home</a>
                     </li>
+                    <%--<li>
+                        <a href="/Login.aspx"><span class="fa fa-sign-in mr-3"><small class="d-flex align-items-center justify-content-center"></small></span>Login</a>
+                    </li>--%>
                     <li>
-                        <a href="/Login.aspx"><span class="fa fa-sign-in mr-3 <%--notif--%>"><small class="d-flex align-items-center justify-content-center"></small></span>Login</a>
+                        <a href="/Sucursal.aspx"><span class="fa fa-coffee mr-3" aria-hidden="true"></span>Sucursal</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-gift mr-3"></span>Sucursal</a>
+                        <a href="/Usuarios.aspx"><span class="fa fa-user-circle mr-3" aria-hidden="true"></span>Usuarios</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-trophy mr-3"></span>Usuarios</a>
+                        <a href="/Mozos.aspx"><span class="fa fa-users mr-3" aria-hidden="true"></span>Mozos</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-cog mr-3"></span>Mozos</a>
+                        <a href="/Articulos.aspx"><span class="fa fa-glass mr-3" aria-hidden="true"></span>Articulos</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-support mr-3"></span>Articulos</a>
-                    </li>
-                    <li>
-                        <a href="#"><span class="fa fa-support mr-3"></span>Ticket</a>
+                        <a href="/Ticket.aspx"><span class="fa fa-money mr-3" aria-hidden="true"></span>Ticket</a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-sign-out mr-3"></span>Sign Out</a>
