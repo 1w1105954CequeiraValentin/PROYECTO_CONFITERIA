@@ -11,7 +11,7 @@ namespace DAL
 {
     public class MozoDAL
     {
-        public bool InsertarMozo(Mozo mozo)
+        public static bool InsertarMozo(Mozo mozo)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -27,7 +27,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@nombre", mozo.Nombre);
                 cmd.Parameters.AddWithValue("@apellido", mozo.Apellido);
                 cmd.Parameters.AddWithValue("@comision", mozo.Comision);
-                cmd.Parameters.AddWithValue("@fechaIngreso", mozo.FechaIngreso);
+                cmd.Parameters.AddWithValue("@fechaIngreso", DateTime.Today);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
@@ -42,7 +42,7 @@ namespace DAL
             }
         }
 
-        public bool ModificarMozo(Mozo mozo1)
+        public static bool ModificarMozo(Mozo mozo1)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -59,7 +59,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@apellido", mozo1.Apellido);
                 cmd.Parameters.AddWithValue("@comision", mozo1.Comision);
                 cmd.Parameters.AddWithValue("@fechaIngreso", mozo1.FechaIngreso);
-                cmd.Parameters.AddWithValue("@idMozoModificar", mozo1.IdMozo);
+                cmd.Parameters.AddWithValue("@idMozoModificar", DateTime.Today);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
@@ -74,7 +74,7 @@ namespace DAL
             }
         }
 
-        public bool EliminarMozo(Mozo mozo2)
+        public static bool EliminarMozo(Mozo mozo2)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();

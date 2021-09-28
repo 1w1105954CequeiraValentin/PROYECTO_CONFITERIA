@@ -5,14 +5,17 @@
 <html>
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>Confiteria Encode</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="css/cssLogin/styleLogin.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.8.1/css/all.css"></script>
@@ -20,6 +23,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" AsyncPostBackTimeout="600" runat="server">
+        </asp:ScriptManager>
         <%-- ACA VA EL NAVBAR --%>
         <%-- EN LAS ETIQUETAS <a VAN LAS REFERENCIAS A LAS PAGINAS /Index.aspx, /Login.aspx, etc --%>
         <div class="wrapper d-flex align-items-stretch">
@@ -28,7 +33,7 @@
                     <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     </button>
                 </div>
-                <div class="img bg-wrap text-center py-4" style="background-image: /*url(images/bg_1.jpg);*/">
+                <div class="img bg-wrap text-center py-4" style="background-image: /*url(images/bg_1.jpg); */">
                     <div class="user-logo">
                         <div class="img" style="background-image: url(images/encode.png);"></div>
                         <h3>Encode Confi</h3>
@@ -36,28 +41,28 @@
                 </div>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="/Index.aspx"><span class="fa fa-home mr-3"></span>Home</a>
+                        <a href="/Index.aspx" class="text-decoration-none"><span class="fa fa-home mr-3"></span>Home</a>
                     </li>
                     <%--<li>
                         <a href="/Login.aspx"><span class="fa fa-sign-in mr-3"><small class="d-flex align-items-center justify-content-center"></small></span>Login</a>
                     </li>--%>
                     <li>
-                        <a href="/Sucursal.aspx"><span class="fa fa-coffee mr-3" aria-hidden="true"></span>Sucursal</a>
+                        <a href="/Sucursal.aspx" class="text-decoration-none"><span class="fa fa-coffee mr-3" aria-hidden="true"></span>Sucursal</a>
                     </li>
                     <li>
-                        <a href="/Usuarios.aspx"><span class="fa fa-user-circle mr-3" aria-hidden="true"></span>Usuarios</a>
+                        <a href="/Usuarios.aspx" class="text-decoration-none"><span class="fa fa-user-circle mr-3" aria-hidden="true"></span>Usuarios</a>
                     </li>
                     <li>
-                        <a href="/Mozos.aspx"><span class="fa fa-users mr-3" aria-hidden="true"></span>Mozos</a>
+                        <a href="/Mozos.aspx" class="text-decoration-none"><span class="fa fa-users mr-3" aria-hidden="true"></span>Mozos</a>
                     </li>
                     <li>
-                        <a href="/Articulos.aspx"><span class="fa fa-glass mr-3" aria-hidden="true"></span>Articulos</a>
+                        <a href="/Articulos.aspx" class="text-decoration-none"><span class="fa fa-glass mr-3" aria-hidden="true"></span>Articulos</a>
                     </li>
                     <li>
-                        <a href="/Ticket.aspx"><span class="fa fa-money mr-3" aria-hidden="true"></span>Ticket</a>
+                        <a href="/Ticket.aspx" class="text-decoration-none"><span class="fa fa-money mr-3" aria-hidden="true"></span>Ticket</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-sign-out mr-3"></span>Sign Out</a>
+                        <a href="#" class="text-decoration-none"><span class="fa fa-sign-out mr-3"></span>Sign Out</a>
                     </li>
                 </ul>
 
@@ -65,10 +70,10 @@
 
             <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5">
-                <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
             </div>
         </div>
 
@@ -76,7 +81,7 @@
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
-        
+
     </form>
 </body>
 </html>

@@ -12,13 +12,13 @@ namespace DAL
 {
     public class ArticuloDAL
     {
-        public bool InsertarArticulo(Articulo articulo)
+        public static bool InsertarArticulo(Articulo articulo)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spInsertarArticulo = "sp_insertarArticulo";
+                string spInsertarArticulo = "sp_insertarArticulos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
@@ -42,7 +42,7 @@ namespace DAL
             }
         }
 
-        public bool ModificarArticulo(Articulo articulo1)
+        public static bool ModificarArticulo(Articulo articulo1)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -73,7 +73,7 @@ namespace DAL
             }
         }
 
-        public bool EliminarArticulo(Articulo articulo2)
+        public static bool EliminarArticulo(Articulo articulo2)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -142,7 +142,7 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandText = "select * " +
                                   "from ARTICULOS" +
-                                  " where idArticulo = '" + id +"'";
+                                  " where idArticulo = '" + id + "'";
                 SqlDataReader dr = cmd.ExecuteReader();
                 lst.Clear();
 
@@ -196,6 +196,88 @@ namespace DAL
             {
                 //Conexion.BeginTransaction();
                 throw new Exception("Ha ocurrido un error");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public static DataTable CargarGV()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            
+            try
+            {
+                string sp_listarArticulosGrid = "sp_listarArticulos";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = sp_listarArticulosGrid;
+                //SqlDataReader dr = cmd.ExecuteReader();
+
+                DataTable GV = new DataTable();
+                GV.Columns.AddRange(new DataColumn[] {
+                    new DataColumn("idArticulo", typeof(int)),
+                    new DataColumn("descripcion", typeof(string)),
+                    new DataColumn("stock", typeof(int)),
+                    new DataColumn("precio_articulo", typeof(float)),
+                    new DataColumn("idRubro", typeof(int))
+                });
+
+                cmd.Parameters.Clear();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        GV.Rows.Add(
+                            dr["idArticulo"].ToString(),
+                            dr["descripcion"].ToString(),
+                            dr["stock"].ToString(),
+                            dr["precio_articulo"].ToString(),
+                            dr["idRubro"].ToString()
+                            );
+                    }
+                }
+
+
+                return GV;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public static DataTable ObtenerRubroArticulo()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            DataTable tabla = new DataTable();
+            try
+            {
+                string query = "select * from RUBROS_ARTICULOS";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                cmd.Connection = con;
+                cmd.CommandText = query;
+                con.Open();
+                tabla.Load(cmd.ExecuteReader());
+                return tabla;
+
+            }
+            catch (Exception e)
+            {
+                //Conexion.BeginTransaction();
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {

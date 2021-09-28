@@ -10,18 +10,18 @@ namespace BLL
 {
     public class MozoBLL
     {
-        MozoDAL mozoDAL = new MozoDAL();
-        public bool InsertarMozo(Mozo mozo)
+        
+        public static bool InsertarMozo(Mozo mozo)
         {
-            return mozoDAL.InsertarMozo(mozo);
+            return DAL.MozoDAL.InsertarMozo(mozo);
         }
-        public bool ModificarMozo(Mozo mozo1)
+        public static bool ModificarMozo(Mozo mozo1)
         {
-            return mozoDAL.ModificarMozo(mozo1);
+            return DAL.MozoDAL.ModificarMozo(mozo1);
         }
-        public bool EliminarMozo(Mozo mozo2)
+        public static bool EliminarMozo(Mozo mozo2)
         {
-            return mozoDAL.EliminarMozo(mozo2);
+            return DAL.MozoDAL.EliminarMozo(mozo2);
         }
     }
 }
