@@ -134,25 +134,44 @@ namespace DAL
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             List<Articulo> lst = new List<Articulo>();
-            Articulo a = null;
+            Articulo a = new Articulo();
             try
             {
+                string spListadoArticulos = "sp_listadoArticulos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
-                cmd.CommandText = "select * " +
-                                  "from ARTICULOS" +
-                                  " where idArticulo = '" + id + "'";
-                SqlDataReader dr = cmd.ExecuteReader();
-                lst.Clear();
+                cmd.CommandText = spListadoArticulos;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@idArt", id);
+                //cmd.ExecuteNonQuery();
+                
+                //SqlDataReader dr = cmd.ExecuteReader();
+                //lst.Clear();
 
-                while (dr.Read())
+                //while (dr.Read())
+                //{
+                //    a = BuscarArticulos(dr);
+                //    lst.Add(a);
+                //}
+                //con.Close();
+                //return lst;
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    a = BuscarArticulos(dr);
-                    lst.Add(a);
+                    if (dr.Read())
+                    {
+                        a.IdArticulo = int.Parse(dr["idArticulo"].ToString());
+                        a.Descripcion = dr["descripcion"].ToString();
+                        a.Stock = int.Parse(dr["stock"].ToString());
+                        a.Precio = float.Parse(dr["precio_articulo"].ToString());
+                        a.IdRubro = int.Parse(dr["idRubro"].ToString());
+
+                        lst.Add(a);
+                        return lst;
+                    }
+                    return lst;
                 }
-                con.Close();
-                return lst;
 
             }
             catch (Exception)

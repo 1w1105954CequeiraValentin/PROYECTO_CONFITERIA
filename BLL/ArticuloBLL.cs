@@ -23,6 +23,10 @@ namespace BLL
         {
             return DAL.ArticuloDAL.EliminarArticulo(articulo2);
         }
+        public static List<Articulo> LstArticulos(int id)
+        {
+            return DAL.ArticuloDAL.LstArticulos(id);
+        }
         public static DataTable CargarGV()
         {
             return DAL.ArticuloDAL.CargarGV();

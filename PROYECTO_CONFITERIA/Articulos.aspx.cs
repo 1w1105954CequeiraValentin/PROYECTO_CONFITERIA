@@ -32,7 +32,30 @@ namespace PROYECTO_CONFITERIA
         protected void gvArticulos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             //VARIABLE QUE VA A ALMACENAR EL ID DE LA FILA SELECCIONADA DE CUALQUIERA DE LOS DOS BOTONES A TRAVES DEL COMMANDARGUMENT
-            int id = Convert.ToInt32(e.CommandArgument);
+            int idArticulo = Convert.ToInt32(e.CommandArgument);
+            ViewState["idArticulo"] = idArticulo;
+            //int id = Convert.ToInt32(gvArticulos.SelectedRow.Cells[1].Text);
+
+            if (e.CommandName == "Modificar")
+            {
+                //CARGAR EL ARTICULO EN LA MODAL (POR MEDIO DE LA LISTA) Y EN EL BOTON GUARDAR DE LA MODAL MODIFICO
+                List<Articulo> lst = BLL.ArticuloBLL.LstArticulos(idArticulo);
+
+                //ESTE FOREACH RECORRE LA TABLA Y CARGA LOS DATOS EN LOS TXT
+                foreach (var x in lst)
+                {
+                    txtDescripcion.Text = x.Descripcion;
+                    txtStock.Text = x.Stock.ToString();
+                    txtPrecio.Text = x.Precio.ToString();
+                    //cboRubro1.Text = x.IdRubro.ToString();
+                    cargarComboRubro();
+                }
+            }
+
+            if (e.CommandName == "Eliminar")
+            {
+                
+            }
         }
 
         public void cargarComboRubro()
@@ -60,6 +83,16 @@ namespace PROYECTO_CONFITERIA
         {
             InsertarArticulo(txtDescripcion.Text, Convert.ToInt32(txtStock.Text), Convert.ToInt32(txtPrecio.Text), Convert.ToInt32(cboRubroArticulo.Text));
             cargarGVArticulos();
+        }
+
+        protected void btnModificarArticulo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
