@@ -19,13 +19,17 @@ namespace BLL
         {
             return DAL.ArticuloDAL.ModificarArticulo(articulo1);
         }
-        public static bool EliminarArticulo(Articulo articulo2)
+        public static bool EliminarArticulo(int id)
         {
-            return DAL.ArticuloDAL.EliminarArticulo(articulo2);
+            return DAL.ArticuloDAL.EliminarArticulo(id);
         }
         public static List<Articulo> LstArticulos(int id)
         {
             return DAL.ArticuloDAL.LstArticulos(id);
+        }
+        public static Articulo SeleccionarIDArticulo(int a)
+        {
+            return DAL.ArticuloDAL.SeleccionarIDArticulo(a);
         }
         public static DataTable CargarGV()
         {

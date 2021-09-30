@@ -96,13 +96,31 @@ namespace PROYECTO_CONFITERIA
         protected global::System.Web.UI.WebControls.TextBox txtNombreModificar;
 
         /// <summary>
-        /// Control lblMPrecioArticulo.
+        /// Control lblStock.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMPrecioArticulo;
+        protected global::System.Web.UI.WebControls.Label lblStock;
+
+        /// <summary>
+        /// Control txtStockModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStockModificar;
+
+        /// <summary>
+        /// Control lblPrecioModificar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrecioModificar;
 
         /// <summary>
         /// Control txtPrecioModificar.
@@ -123,13 +141,13 @@ namespace PROYECTO_CONFITERIA
         protected global::System.Web.UI.WebControls.Label lblRubro1;
 
         /// <summary>
-        /// Control cboRubro1.
+        /// Control cboRubroModificar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cboRubro1;
+        protected global::System.Web.UI.WebControls.DropDownList cboRubroModificar;
 
         /// <summary>
         /// Control btnModificarArticulo.

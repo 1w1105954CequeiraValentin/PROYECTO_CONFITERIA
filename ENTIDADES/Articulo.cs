@@ -11,7 +11,7 @@ namespace ENTIDADES
         public int IdArticulo { get; set; }
         public string Descripcion { get; set; }
         public int Stock { get; set; }
-        public float Precio { get; set; }
+        public double Precio { get; set; }
         public int IdRubro { get; set; }
 
     }

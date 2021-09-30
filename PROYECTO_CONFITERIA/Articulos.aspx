@@ -8,6 +8,14 @@
             $(x).modal('show');
         }
     </script>
+    <script>
+        function MsjDebeIngresarTodosLosDatos() {
+            swal("Error", "Debe ingresar todos los datos", "error")
+        }
+        function MsjArticuloEliminado() {
+            swal("Hecho", "El Articulo fue eliminado", "success")
+        }
+    </script>
     <hr />
     <h2 class="logo">Articulos</h2>
     <div class="row">
@@ -78,16 +86,19 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" ID="lblMNombreArticulo" Text="Nombre de Articulo"></asp:Label>
-                                        <asp:TextBox runat="server" ID="txtNombreModificar" CssClass="form-control " placeholder="Cafe"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtNombreModificar" CssClass="form-control " placeholder=""></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <asp:Label runat="server" ID="lblMPrecioArticulo" Text="Precio del Articulo"></asp:Label>
-                                        <asp:TextBox runat="server" ID="txtPrecioModificar" CssClass="form-control" placeholder="50"></asp:TextBox>
+                                        <asp:Label runat="server" ID="lblStock" Text="Stock"></asp:Label>
+                                        <asp:TextBox runat="server" ID="txtStockModificar" CssClass="form-control" placeholder=""></asp:TextBox>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <asp:Label runat="server" ID="lblPrecioModificar" Text="Precio del Articulo"></asp:Label>
+                                        <asp:TextBox runat="server" ID="txtPrecioModificar" CssClass="form-control" placeholder=""></asp:TextBox>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" ID="lblRubro1" Text="Rubro"></asp:Label>
-                                        <asp:DropDownList runat="server" ID="cboRubro1" CssClass="form-control">
-                                        </asp:DropDownList>
+                                        <asp:DropDownList ID="cboRubroModificar" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                 </div>
                             </ContentTemplate>

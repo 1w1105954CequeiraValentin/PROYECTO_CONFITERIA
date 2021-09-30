@@ -48,7 +48,7 @@ namespace DAL
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spModificarArticulo = "sp_modificarArticulo";
+                string spModificarArticulo = "sp_modificarArticulos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
@@ -63,9 +63,9 @@ namespace DAL
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -73,26 +73,26 @@ namespace DAL
             }
         }
 
-        public static bool EliminarArticulo(Articulo articulo2)
+        public static bool EliminarArticulo(int id)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spEliminarArticulo = "sp_eliminarArticulo";
+                string spEliminarArticulo = "sp_eliminarArticulos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandText = spEliminarArticulo;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@idArticuloEliminar", articulo2.IdArticulo);
+                cmd.Parameters.AddWithValue("@idArticuloEliminar", id);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error" + e);
             }
             finally
             {
@@ -118,7 +118,7 @@ namespace DAL
             }
             if (!dr.IsDBNull(3))
             {
-                a.Precio = dr.GetFloat(3);
+                a.Precio = dr.GetDouble(3);
             }
             if (!dr.IsDBNull(4))
             {
@@ -164,11 +164,11 @@ namespace DAL
                         a.IdArticulo = int.Parse(dr["idArticulo"].ToString());
                         a.Descripcion = dr["descripcion"].ToString();
                         a.Stock = int.Parse(dr["stock"].ToString());
-                        a.Precio = float.Parse(dr["precio_articulo"].ToString());
+                        a.Precio = double.Parse(dr["precio_articulo"].ToString());
                         a.IdRubro = int.Parse(dr["idRubro"].ToString());
 
                         lst.Add(a);
-                        return lst;
+                        
                     }
                     return lst;
                 }
@@ -186,21 +186,21 @@ namespace DAL
         }
 
         //SELECCIONAR ID ARTICULO
-        public static Articulo SeleccionarIDArticulo(Articulo a)
+        public static Articulo SeleccionarIDArticulo(int a)
         {
 
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            Articulo art = null;
+            Articulo art = new Articulo();
             try
             {
-                string spSeleccionarIDArticulo = "sp_seleccionarIDArticulo";
+                string spSeleccionarIDArticulo = "sp_cargarModal";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = spSeleccionarIDArticulo;
-                cmd.Parameters.AddWithValue("@idArticulo", a.IdArticulo);
+                cmd.Parameters.AddWithValue("@idArt", a);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -211,10 +211,10 @@ namespace DAL
                 return art;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 //Conexion.BeginTransaction();
-                throw new Exception("Ha ocurrido un error");
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -242,7 +242,7 @@ namespace DAL
                     new DataColumn("idArticulo", typeof(int)),
                     new DataColumn("descripcion", typeof(string)),
                     new DataColumn("stock", typeof(int)),
-                    new DataColumn("precio_articulo", typeof(float)),
+                    new DataColumn("precio_articulo", typeof(double)),
                     new DataColumn("idRubro", typeof(int))
                 });
 
