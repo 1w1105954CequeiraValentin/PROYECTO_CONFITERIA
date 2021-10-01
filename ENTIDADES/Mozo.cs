@@ -12,7 +12,7 @@ namespace ENTIDADES
         public int NroDoc { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public float Comision { get; set; }
+        public double Comision { get; set; }
         public DateTime FechaIngreso { get; set; }
 
     }

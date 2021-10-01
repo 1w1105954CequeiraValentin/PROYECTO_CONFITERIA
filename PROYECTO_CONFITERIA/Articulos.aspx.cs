@@ -50,9 +50,10 @@ namespace PROYECTO_CONFITERIA
             if (e.CommandName.Equals("Eliminar"))
             {
                 int idArtic = (int)ViewState["idArticulo"];
-                sif (BLL.ArticuloBLL.EliminarArticulo(idArtic))
+                if (BLL.ArticuloBLL.EliminarArticulo(idArtic))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjArticuloEliminado();", true);
+                    cargarGVArticulos();
                 }
             }
         }
@@ -115,6 +116,7 @@ namespace PROYECTO_CONFITERIA
             else
             {
                 ModificarArticulo(txtNombreModificar.Text, Convert.ToInt32(txtStockModificar.Text), Convert.ToDouble(txtPrecioModificar.Text), Convert.ToInt32(cboRubroModificar.Text), idArtic);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjRegistroModificado();", true);
                 cargarGVArticulos();
             }
             

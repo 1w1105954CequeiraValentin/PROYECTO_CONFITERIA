@@ -2,6 +2,7 @@
 using ENTIDADES;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,14 @@ namespace BLL
         public static bool EliminarMozo(Mozo mozo2)
         {
             return DAL.MozoDAL.EliminarMozo(mozo2);
+        }
+        public static DataTable CargarGVMozos()
+        {
+            return DAL.MozoDAL.CargarGVMozos();
+        }
+        public static Mozo SeleccionarIDMozo(int m)
+        {
+            return DAL.MozoDAL.SeleccionarIDMozo(m);
         }
     }
 }

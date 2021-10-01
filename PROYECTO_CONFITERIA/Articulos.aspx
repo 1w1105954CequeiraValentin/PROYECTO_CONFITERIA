@@ -12,8 +12,11 @@
         function MsjDebeIngresarTodosLosDatos() {
             swal("Error", "Debe ingresar todos los datos", "error")
         }
+        function MsjRegistroModificado() {
+            swal("Hecho", "Se modifico el Registro","success")
+        }
         function MsjArticuloEliminado() {
-            swal("Hecho", "El Articulo fue eliminado", "success")
+
         }
     </script>
     <hr />
@@ -60,7 +63,7 @@
                             <asp:TemplateField HeaderText="ACCIONES">
                                 <ItemTemplate>
                                     <asp:Button runat="server" ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("idArticulo") %>' Text="EDITAR" CssClass="btn btn-warning" OnClientClick="mostrarModal('#staticBackdrop');"/>
-                                    <asp:Button runat="server" ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("idArticulo") %>' Text="ELIMINAR" CssClass="btn btn-danger"/>
+                                    <asp:Button runat="server" ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("idArticulo") %>' Text="ELIMINAR" CssClass="btn btn-danger"/> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

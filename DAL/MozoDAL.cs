@@ -123,7 +123,7 @@ namespace DAL
             }
             if (!dr.IsDBNull(4))
             {
-                m.Comision = dr.GetFloat(4);
+                m.Comision = dr.GetDouble(4);
             }
             if (!dr.IsDBNull(5))
             {
@@ -172,12 +172,12 @@ namespace DAL
         }
 
         //SELECCIONAR ID MOZO
-        public static Mozo SeleccionarIDMozo(Mozo m)
+        public static Mozo SeleccionarIDMozo(int m)
         {
 
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            Mozo mozo = null;
+            Mozo mozo = new Mozo();
             try
             {
                 string spSeleccionarIDMozo = "sp_seleccionarIDMozo";
@@ -186,7 +186,7 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = spSeleccionarIDMozo;
-                cmd.Parameters.AddWithValue("@idMozo", m.IdMozo);
+                cmd.Parameters.AddWithValue("@idMozo", m);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -201,6 +201,62 @@ namespace DAL
             {
                 //Conexion.BeginTransaction();
                 throw new Exception("Ha ocurrido un error");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public static DataTable CargarGVMozos()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+
+            try
+            {
+                string sp_listarMozosGrid = "sp_listarMozos";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = sp_listarMozosGrid;
+                //SqlDataReader dr = cmd.ExecuteReader();
+
+                DataTable GV = new DataTable();
+                GV.Columns.AddRange(new DataColumn[] {
+                    new DataColumn("idMozo", typeof(int)),
+                    new DataColumn("nroDoc", typeof(int)),
+                    new DataColumn("nombre", typeof(string)),
+                    new DataColumn("apellido", typeof(string)),
+                    new DataColumn("comision", typeof(double)),
+                    new DataColumn("fechaIngreso", typeof(DateTime))
+                });
+
+                cmd.Parameters.Clear();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        GV.Rows.Add(
+                            dr["idMozo"].ToString(),
+                            dr["nroDoc"].ToString(),
+                            dr["nombre"].ToString(),
+                            dr["apellido"].ToString(),
+                            dr["comision"].ToString(),
+                            dr["fechaIngreso"].ToString()
+                            );
+                    }
+                }
+
+
+                return GV;
+            }
+            catch (Exception)
+            {
+
+                return null;
             }
             finally
             {
