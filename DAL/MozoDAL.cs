@@ -48,7 +48,7 @@ namespace DAL
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spModificarMozo = "sp_modificarMozo";
+                string spModificarMozo = "sp_modificarMozos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
@@ -59,14 +59,14 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@apellido", mozo1.Apellido);
                 cmd.Parameters.AddWithValue("@comision", mozo1.Comision);
                 cmd.Parameters.AddWithValue("@fechaIngreso", mozo1.FechaIngreso);
-                cmd.Parameters.AddWithValue("@idMozoModificar", DateTime.Today);
+                cmd.Parameters.AddWithValue("@idMozoModificar", mozo1.IdMozo);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -74,26 +74,26 @@ namespace DAL
             }
         }
 
-        public static bool EliminarMozo(Mozo mozo2)
+        public static bool EliminarMozo(int idMozo)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spEliminarMozo = "sp_eliminarMozo";
+                string spEliminarMozo = "sp_eliminarMozos";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandText = spEliminarMozo;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@idMozoEliminar", mozo2.IdMozo);
+                cmd.Parameters.AddWithValue("@idMozoEliminar", idMozo);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {

@@ -41,7 +41,6 @@ namespace PROYECTO_CONFITERIA
                 txtNombreModificar.Text = a.Descripcion;
                 txtStockModificar.Text = a.Stock.ToString();
                 txtPrecioModificar.Text = a.Precio.ToString();
-                //cboRubroModificar.Text = a.IdRubro.ToString();
                 cargarComboRubroModificar();
                 ViewState["idArticulo"] = a.IdArticulo;
                 

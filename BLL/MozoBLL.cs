@@ -20,9 +20,9 @@ namespace BLL
         {
             return DAL.MozoDAL.ModificarMozo(mozo1);
         }
-        public static bool EliminarMozo(Mozo mozo2)
+        public static bool EliminarMozo(int idMozo)
         {
-            return DAL.MozoDAL.EliminarMozo(mozo2);
+            return DAL.MozoDAL.EliminarMozo(idMozo);
         }
         public static DataTable CargarGVMozos()
         {
