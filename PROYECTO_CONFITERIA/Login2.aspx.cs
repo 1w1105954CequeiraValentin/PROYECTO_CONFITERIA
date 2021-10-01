@@ -22,6 +22,7 @@ namespace PROYECTO_CONFITERIA
             Usuario u = lst.FirstOrDefault(x => x.NombreUsuario == usuario && x.Password == pass);
             if (u != null)
             {
+                Session["nombreDeUsuario"] = u.NombreUsuario;
                 Response.Redirect("Index.aspx");
 
             }

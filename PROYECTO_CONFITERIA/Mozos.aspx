@@ -30,12 +30,12 @@
             <asp:TextBox runat="server" CssClass="form-control" ID="txtComision" />
         </div>
     </div>
-    <div class="row">
+    <%--<div class="row">
         <div class="form-group col-md-4">
             <asp:Label Text="Fecha Ingreso" runat="server" />
             <asp:TextBox runat="server" CssClass="form-control" ID="txtFechaIngreso" />
         </div>
-    </div>
+    </div>--%>
     <div class="row">
         <div class="form-group col-md-4">
             <asp:Button Text="Registrar Mozo" runat="server" CssClass="btn btn-primary" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
@@ -75,7 +75,7 @@
         <div class="modal-dialog">
             <div class="modal-content" style="background-color: #f2f2f2;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modificar Articulo</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Modificar Mozo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -99,10 +99,10 @@
                                         <asp:Label runat="server" ID="lblComision" Text="Comisión"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtComisionModificar" CssClass="form-control" placeholder=""></asp:TextBox>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <%--<div class="form-group col-md-6">
                                         <asp:Label runat="server" ID="lblFechaIngreso" Text="Fecha Ingreso"></asp:Label>
                                         <asp:TextBox runat="server" ID="txtFechaModificar" CssClass="form-control" placeholder=""></asp:TextBox>
-                                    </div>
+                                    </div>--%>
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -117,5 +117,5 @@
         </div>
     </div>
 
-    <!-- Modal Articulos -->
+    <!-- Modal Mozos -->
 </asp:Content>

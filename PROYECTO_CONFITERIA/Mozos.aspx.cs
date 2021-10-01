@@ -25,7 +25,7 @@ namespace PROYECTO_CONFITERIA
             gvMozos.DataSource = gv;
             gvMozos.DataBind();
         }
-        public bool InsertarMozo(int doc, string nombre, string apellido, double comision, DateTime fecha)
+        public bool InsertarMozo(int doc, string nombre, string apellido, double comision/*, DateTime fecha*/)
         {
             MozoBLL mozoBLL = new MozoBLL();
             Mozo mozo = new Mozo();
@@ -33,12 +33,12 @@ namespace PROYECTO_CONFITERIA
             mozo.Nombre = nombre;
             mozo.Apellido = apellido;
             mozo.Comision = comision;
-            mozo.FechaIngreso = fecha;
+            //mozo.FechaIngreso = fecha;
             return MozoBLL.InsertarMozo(mozo);
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            InsertarMozo(Convert.ToInt32(txtDocumento.Text), txtNombre.Text, txtApellido.Text, Convert.ToDouble(txtComision.Text), Convert.ToDateTime(txtFechaIngreso.Text));
+            InsertarMozo(Convert.ToInt32(txtDocumento.Text), txtNombre.Text, txtApellido.Text, Convert.ToDouble(txtComision.Text)/*, Convert.ToDateTime(txtFechaIngreso.Text)*/);
             cargarGVMozo();
         }
         protected void gvMozos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -53,7 +53,7 @@ namespace PROYECTO_CONFITERIA
                 txtNombreModificar.Text = m.Nombre.ToString();
                 txtApellidoModificar.Text = m.Apellido.ToString();
                 txtComisionModificar.Text = m.Comision.ToString();
-                txtFechaModificar.Text = m.FechaIngreso.ToString();
+                //txtFechaModificar.Text = m.FechaIngreso.ToString();
                 ViewState["idMozo"] = m.IdMozo;
             }
             if (e.CommandName.Equals("Eliminar"))
@@ -65,7 +65,7 @@ namespace PROYECTO_CONFITERIA
                 }
             }
         }
-        public bool ModificarMozo(int nroDoc, string nombre, string apellido, double comision, DateTime fecha, int idMo)
+        public bool ModificarMozo(int nroDoc, string nombre, string apellido, double comision/*, DateTime fecha*/, int idMo)
         {
             BLL.MozoBLL mozoBLL = new MozoBLL();
             Mozo m = new Mozo();
@@ -74,19 +74,19 @@ namespace PROYECTO_CONFITERIA
             m.Nombre = nombre;
             m.Apellido = apellido;
             m.Comision = comision;
-            m.FechaIngreso = fecha;
+            //m.FechaIngreso = fecha;
             return BLL.MozoBLL.ModificarMozo(m);
         }
         protected void btnModificarMozo_Click(object sender, EventArgs e)
         {
             int idM = (int)ViewState["idMozo"];
-            if (string.IsNullOrEmpty(txtNroDocModificar.Text) || string.IsNullOrEmpty(txtNombreModificar.Text) || string.IsNullOrEmpty(txtApellidoModificar.Text) || string.IsNullOrEmpty(txtComisionModificar.Text) || string.IsNullOrEmpty(txtFechaModificar.Text))
+            if (string.IsNullOrEmpty(txtNroDocModificar.Text) || string.IsNullOrEmpty(txtNombreModificar.Text) || string.IsNullOrEmpty(txtApellidoModificar.Text) || string.IsNullOrEmpty(txtComisionModificar.Text) /*|| string.IsNullOrEmpty(txtFechaModificar.Text)*/)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjDebeIngresarTodosLosDatos();", true);
             }
             else
             {
-                ModificarMozo(Convert.ToInt32(txtNroDocModificar.Text), txtNombreModificar.Text, txtApellidoModificar.Text, Convert.ToDouble(txtComisionModificar.Text), Convert.ToDateTime(txtFechaModificar.Text), idM);
+                ModificarMozo(Convert.ToInt32(txtNroDocModificar.Text), txtNombreModificar.Text, txtApellidoModificar.Text, Convert.ToDouble(txtComisionModificar.Text), /*Convert.ToDateTime(txtFechaModificar.Text),*/ idM);
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjRegistroModificado();", true);
                 cargarGVMozo();
             }

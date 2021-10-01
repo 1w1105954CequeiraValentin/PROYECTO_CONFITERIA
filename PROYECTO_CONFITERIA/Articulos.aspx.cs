@@ -21,14 +21,12 @@ namespace PROYECTO_CONFITERIA
             }
             
         }
-
         public void cargarGVArticulos()
         {
             DataTable gv = BLL.ArticuloBLL.CargarGV();
             gvArticulos.DataSource = gv;
             gvArticulos.DataBind();
         }
-
         protected void gvArticulos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             //VARIABLE QUE VA A ALMACENAR EL ID DE LA FILA SELECCIONADA DE CUALQUIERA DE LOS DOS BOTONES A TRAVES DEL COMMANDARGUMENT
@@ -56,7 +54,6 @@ namespace PROYECTO_CONFITERIA
                 }
             }
         }
-
         public void cargarComboRubro()
         {
             DataTable tabla = BLL.ArticuloBLL.ObtenerRubroArticulo();
@@ -66,7 +63,6 @@ namespace PROYECTO_CONFITERIA
             cboRubroArticulo.DataBind();
             cboRubroArticulo.Items.Insert(0, new ListItem("Seleccione un Rubro..."));
         }
-
         public void cargarComboRubroModificar()
         {
             DataTable tabla = BLL.ArticuloBLL.ObtenerRubroArticulo();
@@ -76,7 +72,6 @@ namespace PROYECTO_CONFITERIA
             cboRubroModificar.DataBind();
             cboRubroModificar.Items.Insert(0, new ListItem("Seleccione un Rubro..."));
         }
-
         public bool InsertarArticulo(string descripcion, int stock, float precio, int idRubro)
         {
             ArticuloBLL articuloBLL = new ArticuloBLL();

@@ -38,6 +38,7 @@
                     <div class="user-logo">
                         <div class="img" style="background-image: url(images/encode.png);"></div>
                         <h3>Encode Confi</h3>
+                        <h5 ID="Bienvenido" runat="server" class="bg-white"></h5>
                     </div>
                 </div>
                 <ul class="list-unstyled components mb-5">

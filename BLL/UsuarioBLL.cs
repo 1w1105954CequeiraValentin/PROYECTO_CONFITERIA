@@ -2,6 +2,7 @@
 using ENTIDADES;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,21 +12,33 @@ namespace BLL
     public class UsuarioBLL
     {
         UsuarioDAL usuarioDAL = new UsuarioDAL();
-        public bool InsertarUsuario(Usuario usuario)
+        public static bool InsertarUsuario(Usuario usuario)
         {
-            return usuarioDAL.InsertarUsuario(usuario);
+            return DAL.UsuarioDAL.InsertarUsuario(usuario);
         }
-        public bool ModificarUsuario(Usuario usuario1)
+        public static bool ModificarUsuario(Usuario usuario1)
         {
-            return usuarioDAL.ModificarUsuario(usuario1);
+            return DAL.UsuarioDAL.ModificarUsuario(usuario1);
         }
-        public bool EliminarUsuario(Usuario usuario2)
+        public static bool EliminarUsuario(int u)
         {
-            return usuarioDAL.EliminarUsuario(usuario2);
+            return DAL.UsuarioDAL.EliminarUsuario(u);
         }
         public static List<Usuario> ListaUsuario(string usuario, string pass)
         {
-            return UsuarioDAL.ListaUsuario(usuario, pass);
+            return DAL.UsuarioDAL.ListaUsuario(usuario, pass);
+        }
+        public static DataTable CargarGVUsuario()
+        {
+            return DAL.UsuarioDAL.CargarGVUsuario();
+        }
+        public static DataTable ObtenerRolUsuario()
+        {
+            return DAL.UsuarioDAL.ObtenerRolUsuario();
+        }
+        public static Usuario SeleccionarIDUsuario(int u)
+        {
+            return DAL.UsuarioDAL.SeleccionarIDUsuario(u);
         }
     }
 }

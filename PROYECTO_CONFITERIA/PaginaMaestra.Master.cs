@@ -11,7 +11,8 @@ namespace PROYECTO_CONFITERIA
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Bienvenido.InnerText = "Bienvenido " + Session["nombreDeUsuario"];
         }
+
     }
 }

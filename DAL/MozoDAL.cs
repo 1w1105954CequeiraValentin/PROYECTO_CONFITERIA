@@ -58,7 +58,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@nombre", mozo1.Nombre);
                 cmd.Parameters.AddWithValue("@apellido", mozo1.Apellido);
                 cmd.Parameters.AddWithValue("@comision", mozo1.Comision);
-                cmd.Parameters.AddWithValue("@fechaIngreso", mozo1.FechaIngreso);
+                //cmd.Parameters.AddWithValue("@fechaIngreso", mozo1.FechaIngreso);
                 cmd.Parameters.AddWithValue("@idMozoModificar", mozo1.IdMozo);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();

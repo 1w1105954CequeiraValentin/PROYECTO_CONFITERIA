@@ -11,7 +11,7 @@ namespace DAL
 {
     public class UsuarioDAL
     {
-        public bool InsertarUsuario(Usuario usuario)
+        public static bool InsertarUsuario(Usuario usuario)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -24,15 +24,15 @@ namespace DAL
                 cmd.CommandText = spInsertarUsuario;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nombreUsuario", usuario.NombreUsuario);
-                cmd.Parameters.AddWithValue("@password", usuario.Password);
+                cmd.Parameters.AddWithValue("@password", EncryptKeys.EncriptarPassword(usuario.Password, "Keys"));
                 cmd.Parameters.AddWithValue("@idRol", usuario.IdRolUsuario);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -40,29 +40,29 @@ namespace DAL
             }
         }
 
-        public bool ModificarUsuario(Usuario usuario1)
+        public static bool ModificarUsuario(Usuario usuario1)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spModificarUsuario = "sp_modificarUsuario";
+                string spModificarUsuario = "sp_modificarUsuarios";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;
                 cmd.CommandText = spModificarUsuario;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@nombreUsuario", usuario1.NombreUsuario);
-                cmd.Parameters.AddWithValue("@password", usuario1.Password);
+                cmd.Parameters.AddWithValue("@password", EncryptKeys.EncriptarPassword(usuario1.Password, "Keys"));
                 cmd.Parameters.AddWithValue("@idRol", usuario1.IdRolUsuario);
                 cmd.Parameters.AddWithValue("@idUsuario", usuario1.IdUsuario);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -70,7 +70,7 @@ namespace DAL
             }
         }
 
-        public bool EliminarUsuario(Usuario usuario2)
+        public static bool EliminarUsuario(int idUsu)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -82,14 +82,14 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandText = spEliminarUsuario;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@idUsuarioEliminar", usuario2.IdUsuario);
+                cmd.Parameters.AddWithValue("@idUsuarioEliminar", idUsu);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error" + e);
             }
             finally
             {
@@ -160,12 +160,12 @@ namespace DAL
         }
 
         //SELECCIONAR ID ARTICULO
-        public static Usuario SeleccionarIDUsuario(Usuario u)
+        public static Usuario SeleccionarIDUsuario(int u)
         {
 
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
-            Usuario usu = null;
+            Usuario usu = new Usuario();
             try
             {
                 string spSeleccionarIDUsuario = "sp_seleccionarIDUsuario";
@@ -174,7 +174,7 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = spSeleccionarIDUsuario;
-                cmd.Parameters.AddWithValue("@idUsario", u.IdUsuario);
+                cmd.Parameters.AddWithValue("@idUsuario", u);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
@@ -185,10 +185,10 @@ namespace DAL
                 return usu;
 
             }
-            catch (Exception)
+            catch (SqlException e)
             {
                 //Conexion.BeginTransaction();
-                throw new Exception("Ha ocurrido un error");
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
@@ -221,10 +221,88 @@ namespace DAL
                 }
                 return lst;
             }
-            catch (Exception)
+            catch (SqlException e)
             {
                 //agregar alerta
-                throw new Exception("Ha ocurrido un error");
+                throw new Exception("Ha ocurrido un error" + e);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public static DataTable CargarGVUsuario()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+
+            try
+            {
+                string sp_listarUsuarioGrid = "sp_listarUsuarios";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = sp_listarUsuarioGrid;
+                //SqlDataReader dr = cmd.ExecuteReader();
+
+                DataTable GV = new DataTable();
+                GV.Columns.AddRange(new DataColumn[] {
+                    new DataColumn("idUsuario", typeof(int)),
+                    new DataColumn("nombreUsuario", typeof(string)),
+                    new DataColumn("pass", typeof(string)),
+                    new DataColumn("idRolUsuario", typeof(int))
+                });
+
+                cmd.Parameters.Clear();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        GV.Rows.Add(
+                            dr["idUsuario"].ToString(),
+                            dr["nombreUsuario"].ToString(),
+                            dr["pass"].ToString(),
+                            dr["idRolUsuario"].ToString()
+                            );
+                    }
+                }
+
+
+                return GV;
+            }
+            catch (SqlException e)
+            {
+
+                throw new Exception("Ha ocurrido un error" + e);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public static DataTable ObtenerRolUsuario()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            DataTable tabla = new DataTable();
+            try
+            {
+                string query = "select * from ROLES_USUARIOS";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                cmd.Connection = con;
+                cmd.CommandText = query;
+                con.Open();
+                tabla.Load(cmd.ExecuteReader());
+                return tabla;
+
+            }
+            catch (Exception e)
+            {
+                //Conexion.BeginTransaction();
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {
