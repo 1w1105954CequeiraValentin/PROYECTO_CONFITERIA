@@ -24,10 +24,15 @@
         <div class="form-group col-md-4">
             <asp:Label Text="Rol Usuario" runat="server" />
             <asp:DropDownList ID="cboRolUsuario" runat="server" CssClass="form-control"></asp:DropDownList>
+            <asp:Label ID="lblSeleccioneRol" Text="Seleccione un Rol" Visible="false" runat="server" />
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <asp:Button Text="Registrar Usuario" runat="server" CssClass="btn btn-primary" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <asp:Button Text="Registrar Usuario" runat="server" CssClass="btn btn-primary" ID="btnRegistrar" OnClick="btnRegistrar_Click" OnClientClick="Validar();" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
         <hr />
@@ -90,11 +95,37 @@
                     <div class="modal-footer">
                         <asp:Button runat="server" CssClass="btn btn-primary" Text="Modificar" ID="btnModificarUsuario" OnClick="btnModificarUsuario_Click"></asp:Button>
 
-                        <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" />
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:Button runat="server" ID="btnCancelar" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" OnClientClick="CerrarModal();" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        
                     </div>
                 </div>
             </div>
         </div>
+         <!-- Modal USUARIOS -->
 
-        <!-- Modal USUARIOS -->
+        <script>
+            function Validar() {
+                let nombre = document.getElementById('<%=txtNombreUsuario.ClientID%>').value;
+                let pass = document.getElementById('<%=txtPassword.ClientID%>').value;
+                if (nombre === "" || nombre === undefined) {
+                    swal("Ingrese Nombre de Usuario");
+                    nombre.focus();
+                }
+                if (pass === "" || pass === undefined) {
+                    swal("Ingrese Password");
+                    pass.focus();
+                }
+            }
+            function CerrarModal() {
+                $('#staticBackdrop').modal('hide');
+            }
+            function MsjDebeIngresarTodosLosDatos() {
+                swal("Debe ingresar todos los datos");
+            }
+        </script>
+       
 </asp:Content>

@@ -38,27 +38,42 @@ namespace PROYECTO_CONFITERIA
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            InsertarUsuario(txtNombreUsuario.Text, txtPassword.Text, Convert.ToInt32(cboRolUsuario.Text));
-            cargarGVUsuarios();
+            if (!validarCamposVacios())
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjDebeIngresarTodosLosDatos();", true);
+            }
+            else if(cboRolUsuario.SelectedIndex > 0)
+            {
+                InsertarUsuario(txtNombreUsuario.Text, txtPassword.Text, Convert.ToInt32(cboRolUsuario.Text));
+                cargarGVUsuarios();
+                lblSeleccioneRol.Text = "USUARIO REGISTRADO";
+                lblSeleccioneRol.Visible = true;
+            }
+            else
+            {
+                lblSeleccioneRol.Visible = true;
+            }
+            
         }
 
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int idUs = Convert.ToInt32(e.CommandArgument);
-            ViewState["idUsuario"] = idUs;
+            //ViewState["idUsuario"] = idUs;
 
             if (e.CommandName.Equals("Modificar"))
             {
-                Usuario u = UsuarioBLL.SeleccionarIDUsuario(int.Parse(ViewState["idUsuario"].ToString()));
+                Usuario u = UsuarioBLL.SeleccionarIDUsuario(idUs);
                 txtNombreUsuarioModificar.Text = u.NombreUsuario.ToString();
                 txtPassModificar.Text = u.Password.ToString();
                 cargarComboRolModificar();
-                ViewState["idUsuario"] = u.IdUsuario;
+                idUs = u.IdUsuario;
+                //ViewState["idUsuario"] = u.IdUsuario;
             }
             if (e.CommandName.Equals("Eliminar"))
             {
-                int idUsuario = (int)ViewState["IdUsuario"];
-                if (BLL.UsuarioBLL.EliminarUsuario(idUsuario))
+                //int idUsuario = (int)ViewState["IdUsuario"];
+                if (BLL.UsuarioBLL.EliminarUsuario(idUs))
                 {
                     cargarGVUsuarios();
                 }
@@ -86,7 +101,7 @@ namespace PROYECTO_CONFITERIA
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            
         }
         public bool ModificarUsuario(string nomUsua, string pass, int idRol, int idUs)
         {
@@ -111,6 +126,27 @@ namespace PROYECTO_CONFITERIA
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "MsjRegistroModificado();", true);
                 cargarGVUsuarios();
             //}
+        }
+        public bool validarCamposVacios()
+        {
+
+            //if (cboRolUsuario.SelectedItem.Equals(0))
+            //{
+            //    cboRolUsuario.Focus();
+            //    return false;
+            //}
+            if (string.IsNullOrEmpty(txtNombreUsuario.Text))
+            {
+                txtNombreUsuario.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtPassword.Text))
+            {
+                txtPassword.Focus();
+                return false;
+            }
+            
+            return true;
         }
     }
 }

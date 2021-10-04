@@ -76,7 +76,7 @@ namespace DAL
             SqlCommand cmd = new SqlCommand();
             try
             {
-                string spEliminarUsuario = "sp_eliminarUsuario";
+                string spEliminarUsuario = "sp_eliminarUsuarios";
                 con.ConnectionString = Conexion.ObtenerConexion();
                 con.Open();
                 cmd.Connection = con;

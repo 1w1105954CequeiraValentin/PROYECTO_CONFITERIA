@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ENTIDADES;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,20 @@ namespace PROYECTO_CONFITERIA
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Bienvenido.InnerText = "Bienvenido " + Session["nombreDeUsuario"];
+            Usuario user = (Usuario)Session["nombreDeUsuario"];
+
+            if (user == null)
+            {
+                Response.Redirect("Login2.aspx");
+            }
+
+            Bienvenido.InnerText = "Bienvenido " + user.NombreUsuario;
         }
 
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session.Remove("nombreDeUsuario");
+            Response.Redirect("Login2.aspx");
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace DAL
 {
     public class SucursalDAL
     {
-        public bool InsertarSucursal(Sucursal sucursal)
+        public static bool InsertarSucursal(Sucursal sucursal)
         {
             SqlConnection con = new SqlConnection();
             SqlCommand cmd = new SqlCommand();
@@ -35,6 +35,89 @@ namespace DAL
             catch (Exception e)
             {
                 return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public static DataTable CargarGV()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+
+            try
+            {
+                string sp_listarSucursalesGrid = "sp_listarSucursales";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                con.Open();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = sp_listarSucursalesGrid;
+                //SqlDataReader dr = cmd.ExecuteReader();
+
+                DataTable GV = new DataTable();
+                GV.Columns.AddRange(new DataColumn[] {
+                    new DataColumn("idSucursal", typeof(int)),
+                    new DataColumn("direccion", typeof(string)),
+                    new DataColumn("razonSocial", typeof(string)),
+                    new DataColumn("nroCuit", typeof(string)),
+                    new DataColumn("ingresosBrutos", typeof(double)),
+                    new DataColumn("idTipoIva", typeof(int))
+                });
+
+                cmd.Parameters.Clear();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        GV.Rows.Add(
+                            dr["idSucursal"].ToString(),
+                            dr["direccion"].ToString(),
+                            dr["razonSocial"].ToString(),
+                            dr["nroCuit"].ToString(),
+                            dr["ingresosBrutos"].ToString(),
+                            dr["idTipoIva"].ToString()
+                            );
+                    }
+                }
+
+
+                return GV;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+        public static DataTable ObtenerTipoIva()
+        {
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            DataTable tabla = new DataTable();
+            try
+            {
+                string query = "select * from TIPOS_IVAS";
+                con.ConnectionString = Conexion.ObtenerConexion();
+                cmd.Connection = con;
+                cmd.CommandText = query;
+                con.Open();
+                tabla.Load(cmd.ExecuteReader());
+                return tabla;
+
+            }
+            catch (Exception e)
+            {
+                //Conexion.BeginTransaction();
+                throw new Exception("Ha ocurrido un error " + e);
             }
             finally
             {

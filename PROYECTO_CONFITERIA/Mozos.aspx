@@ -54,7 +54,7 @@
                             <asp:BoundField DataField="nroDoc" HeaderText="NRO. DOCUMENTO" />
                             <asp:BoundField DataField="nombre" HeaderText="NOMBRE" />
                             <asp:BoundField DataField="apellido" HeaderText="APELLIDO" />
-                            <asp:BoundField DataField="comision" HeaderText="COMISION" />
+                            <asp:BoundField DataField="comision" HeaderText="COMISION(%)" />
                             <asp:BoundField DataField="fechaIngreso" HeaderText="FECHA INGRESO" />
                             <asp:TemplateField HeaderText="ACCIONES">
                                 <ItemTemplate>
