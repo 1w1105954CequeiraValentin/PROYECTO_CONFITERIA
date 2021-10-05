@@ -54,6 +54,7 @@
                             <asp:BoundField DataField="direccion" HeaderText="DIRECCIÓN" />
                             <asp:BoundField DataField="razonSocial" HeaderText="RAZÓN SOCIAL" />
                             <asp:BoundField DataField="nroCuit" HeaderText="NRO. CUIT" />
+                            <asp:BoundField DataField="ingresosBrutos" HeaderText="ING. BRUT." />
                             <asp:BoundField DataField="idTipoIva" HeaderText="TIPO IVA" />
                             <asp:TemplateField HeaderText="ACCIONES">
                                 <ItemTemplate>

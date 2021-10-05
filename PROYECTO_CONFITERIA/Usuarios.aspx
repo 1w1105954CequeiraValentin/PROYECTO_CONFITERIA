@@ -51,7 +51,7 @@
                                 <asp:TemplateField HeaderText="ACCIONES">
                                     <ItemTemplate>
                                         <asp:Button runat="server" ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("idUsuario") %>' Text="EDITAR" CssClass="btn btn-warning" OnClientClick="mostrarModal('#staticBackdrop');" />
-                                        <asp:Button runat="server" ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("idUsuario") %>' Text="ELIMINAR" CssClass="btn btn-danger" />
+                                        <asp:Button runat="server" ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("idUsuario") %>' Text="ELIMINAR" CssClass="btn btn-danger"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -123,9 +123,40 @@
             function CerrarModal() {
                 $('#staticBackdrop').modal('hide');
             }
+
             function MsjDebeIngresarTodosLosDatos() {
-                swal("Debe ingresar todos los datos");
+                swal("Error", "Debe ingresar todos los datos", "error");
             }
+            function RegistroExitoso() {
+                swal("Éxito", "Registro Exitoso!", "success")
+            }
+            //function ConfirmDelete() {
+            //    var x = swal("Esta seguro que desea Eliminar?");
+            //    if (x)
+            //        return true;
+            //    else
+            //        return false;
+            //}
+            //function funcionModal() {
+            //    swal({
+            //        title: "Eliminar Usuario",
+            //        text: "¿Desea eliminar un Usuario?",
+            //        icon: "warning",
+            //        buttons: true,
+            //        dangerMode: true,
+            //    })
+            //        .then((willDelete) => {
+            //            if (willDelete) {
+            //                swal("Usuario Eliminado", {
+            //                    icon: "success",
+            //                });
+            //                return true;
+
+            //            } else {
+            //                return false;
+            //            }
+            //        });
+            //}
         </script>
        
 </asp:Content>

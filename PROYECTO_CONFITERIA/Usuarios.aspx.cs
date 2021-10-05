@@ -46,8 +46,7 @@ namespace PROYECTO_CONFITERIA
             {
                 InsertarUsuario(txtNombreUsuario.Text, txtPassword.Text, Convert.ToInt32(cboRolUsuario.Text));
                 cargarGVUsuarios();
-                lblSeleccioneRol.Text = "USUARIO REGISTRADO";
-                lblSeleccioneRol.Visible = true;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "RegistroExitoso();", true);
             }
             else
             {
@@ -75,6 +74,7 @@ namespace PROYECTO_CONFITERIA
                 //int idUsuario = (int)ViewState["IdUsuario"];
                 if (BLL.UsuarioBLL.EliminarUsuario(idUs))
                 {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "ConfirmDelete();", true);
                     cargarGVUsuarios();
                 }
             }

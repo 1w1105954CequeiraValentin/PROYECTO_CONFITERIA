@@ -21,13 +21,12 @@
     <script src="https://use.fontawesome.com/releases/v5.8.1/css/all.css"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" AsyncPostBackTimeout="600" runat="server">
         </asp:ScriptManager>
-        <%-- ACA VA EL NAVBAR --%>
-        <%-- EN LAS ETIQUETAS <a VAN LAS REFERENCIAS A LAS PAGINAS /Index.aspx, /Login.aspx, etc --%>
         <div class="wrapper d-flex align-items-stretch">
             <nav id="sidebar">
                 <div class="custom-menu">

@@ -13,5 +13,10 @@ namespace PROYECTO_CONFITERIA
         {
 
         }
+
+        protected void gvDetalle_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
     }
 }

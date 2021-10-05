@@ -12,6 +12,7 @@ namespace ENTIDADES
         public DateTime Fecha { get; set; }
         public int IdSucursal { get; set; }
         public int IdMozo { get; set; }
+        public int IdUsuario { get; set; }
 
     }
 }
