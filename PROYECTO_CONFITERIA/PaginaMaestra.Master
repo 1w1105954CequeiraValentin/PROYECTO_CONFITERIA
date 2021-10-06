@@ -63,6 +63,9 @@
                         <a href="/Ticket.aspx" class="text-decoration-none"><span class="fa fa-money mr-3" aria-hidden="true"></span>Ticket</a>
                     </li>
                     <li>
+                        <a href="/Reportes.aspx" class="text-decoration-none"><span class="fa fa-info mr-3" aria-hidden="true"></span>Reportes</a>
+                    </li>
+                    <li>
                         <asp:LinkButton runat="server" ID="btnCerrarSesion" OnClick="btnCerrarSesion_Click" CssClass="text-decoration-none"><span class="fa fa-sign-out mr-3"></span>Sign Out</asp:LinkButton>
                     </li>
                 </ul>
