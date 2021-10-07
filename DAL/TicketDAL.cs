@@ -27,11 +27,11 @@ namespace DAL
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = nombreSP;
-                cmd.Parameters.AddWithValue("@nroTicket", t.NroTicket);
+                //cmd.Parameters.AddWithValue("@nroTicket", t.NroTicket);
                 cmd.Parameters.AddWithValue("@fecha", DateTime.Today);
-                cmd.Parameters.AddWithValue("@idSucursal", t.IdSucursal);
+                cmd.Parameters.AddWithValue("@idSucursal", 1);
                 cmd.Parameters.AddWithValue("@idMozo", t.IdMozo);
-                cmd.Parameters.AddWithValue("@idUsuario", t.IdUsuario);
+                cmd.Parameters.AddWithValue("@idUsuario", 10);
 
                 SqlParameter outputIdParam = new SqlParameter("@nroTicket", SqlDbType.Int)
                 {
@@ -82,14 +82,14 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@cantidad", d.Cantidad);
                 cmd.Parameters.AddWithValue("@pre_unit", d.PrecioUnitario);
                 cmd.Parameters.AddWithValue("@nro_ticket", d.NroTicket);
-                cmd.Parameters.AddWithValue("@idArticulo", d.IdArticulo);
+                cmd.Parameters.AddWithValue("@id_articulo", d.IdArticulo);
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
                 return true;
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                return false;
+                throw new Exception("Ha ocurrido un error" + e);
             }
             finally
             {

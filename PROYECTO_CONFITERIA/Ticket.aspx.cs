@@ -1,4 +1,5 @@
-﻿using ENTIDADES;
+﻿using BLL;
+using ENTIDADES;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -88,9 +89,6 @@ namespace PROYECTO_CONFITERIA
             row["Importe"] = importe.ToString();
             dt.Rows.Add(row);
 
-
-
-
             gvDetalle.DataSource = dt;
             gvDetalle.DataBind();
             Session["datos"] = dt;
@@ -119,10 +117,39 @@ namespace PROYECTO_CONFITERIA
             double precio = ar.Precio;
             ViewState["precio"] = precio;
         }
+        public bool insertarDetalle(int idSuc, int idM, int idUsua)
+        {
+            TicketBLL ticketBLL = new TicketBLL();
+            ENTIDADES.Ticket ticket = new ENTIDADES.Ticket();
+            //ticket.Fecha = fecha;
+            ticket.IdSucursal = idSuc;
+            ticket.IdMozo = idM;
+            ticket.IdUsuario = idUsua;
+
+            int id = TicketBLL.InsertarTicket(ticket);
+
+            Detalle_Ticket detalle = null;
+            foreach (GridViewRow x in gvDetalle.Rows)
+            {
+                detalle = new Detalle_Ticket
+                {
+                    NroTicket = id,
+                    IdArticulo = Convert.ToInt32(x.Cells[0].Text),
+                    Cantidad = Convert.ToInt32(x.Cells[1].Text),
+                    PrecioUnitario = Convert.ToDouble(x.Cells[2].Text)
+                };
+
+                TicketBLL.InsertarDetalleTicket(detalle);
+            }
+            return true;
+        }
 
         protected void btnCobrar_Click(object sender, EventArgs e)
         {
-
+            if (insertarDetalle(Convert.ToInt32(cboArticulo.Text), Convert.ToInt32(txtCantidad.Text), Convert.ToInt32(cboMozo.Text)))
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "MyFunction", "ticketAgregado();", true);
+            }
         }
     }
 }

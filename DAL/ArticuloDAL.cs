@@ -263,7 +263,6 @@ namespace DAL
                     }
                 }
 
-
                 return GV;
             }
             catch (Exception)

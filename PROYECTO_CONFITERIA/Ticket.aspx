@@ -7,6 +7,9 @@
         function mostrarModal(x) {
             $(x).modal('show');
         }
+        function ticketAgregado() {
+            swal("Agregado correctamente");
+        }
     </script>
     <hr />
     <h2 class="logo">Ticket</h2>
@@ -30,7 +33,7 @@
         <div class="form-group col-md-4">
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
-                    <asp:Button Text="Generar Detalle" runat="server" CssClass="btn btn-primary" ID="btnGenerarTicket" OnClick="btnGenerarTicket_Click" />
+                    <asp:Button Text="Generar Detalle" runat="server" CssClass="btn btn-secondary" ID="btnGenerarTicket" OnClick="btnGenerarTicket_Click" />
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
@@ -56,15 +59,15 @@
                             <%--</asp:TemplateField>--%>
                         </Columns>
                     </asp:GridView>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:Button Text="Generar Ticket" runat="server" CssClass="btn btn-primary" ID="btnCobrar" OnClick="btnCobrar_Click" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Button Text="Generar Ticket" runat="server" CssClass="btn btn-primary" ID="btnCobrar" OnClick="btnCobrar_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </ContentTemplate>

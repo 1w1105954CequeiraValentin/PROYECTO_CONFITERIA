@@ -10,7 +10,7 @@ namespace ENTIDADES
     {
         public int NroDetalle { get; set; }
         public int Cantidad { get; set; }
-        public float PrecioUnitario { get; set; }
+        public double PrecioUnitario { get; set; }
         public int NroTicket { get; set; }
         public int IdArticulo { get; set; }
 
